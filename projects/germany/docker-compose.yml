@@ -9,13 +9,19 @@ services:
     restart: always
     ports: [ "127.0.0.1:4400:4400" ]
   schema:
-    image: pelias/schema:master
+    build:
+      context: https://github.com/plan4better/schema.git
+      dockerfile: Dockerfile
+    image: pelias/schema:plan4better
     container_name: pelias_schema
     user: "${DOCKER_USER}"
     volumes:
       - "./pelias.json:/code/pelias.json"
   api:
-    image: pelias/api:master
+    build:
+      context: https://github.com/plan4better/api.git
+      dockerfile: Dockerfile
+    image: pelias/api:plan4better
     container_name: pelias_api
     user: "${DOCKER_USER}"
     restart: always
